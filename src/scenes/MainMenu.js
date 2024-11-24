@@ -96,7 +96,7 @@ export class MainMenu extends Scene
             dagger.y = 1000;
         })
         settings.on('pointerdown', () => {
-            alert('settings clicked');
+            this.scene.start('Settings')
         })
 
         credits.on('pointerover', () => {
