@@ -16,13 +16,13 @@ export class MainMenu extends Scene
 
     create ()
     {
-        // Grab the username from the data object to displayed in top right corner
-        const username = data.username;
-
         this.add.image(350, 230, 'Macbeth');
 
         this.add.image(770, 320, 'crown');
 
+
+        // Grab the username from the data object to displayed in top right corner
+        const username = data.username;
 
         this.add.text(750, 100, username, {
             fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
@@ -31,11 +31,20 @@ export class MainMenu extends Scene
         }).setOrigin(0.5);
 
 
-        this.add.text(400, 330, 'New Game', {
+        const newGame = this.add.text(400, 330, 'New Game', {
             fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'left'
-        }).setOrigin(0.5);
+        }).setInteractive().setOrigin(0.5);
+        newGame.on('pointerover', () => {
+            newGame.setColor('#ff0');
+        })
+        newGame.on('pointerout', () => {
+            newGame.setColor('#fff');
+        })
+        newGame.on('pointerdown', () => {
+            alert('playButton clicked');
+        })
 
         this.add.text(402, 390, 'Load Game', {
             fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
@@ -49,10 +58,10 @@ export class MainMenu extends Scene
             align: 'left'
         }).setOrigin(0.5);
 
-        this.input.once('pointerdown', () => {
+        // this.input.once('pointerdown', () => {
 
-            this.scene.start('Game');
+        //     this.scene.start('Game');
 
-        });
+        // });
     }
 }
