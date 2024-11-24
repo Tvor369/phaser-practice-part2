@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-//data = { username: 'GravyTrain369' };  
+const data = { username: 'GravyTrain369' };  
 
 export class MainMenu extends Scene
 {
@@ -16,13 +16,15 @@ export class MainMenu extends Scene
 
     create ()
     {
+        // Grab the username from the data object to displayed in top right corner
+        const username = data.username;
 
         this.add.image(350, 230, 'Macbeth');
 
         this.add.image(770, 320, 'crown');
 
 
-        this.add.text(750, 100, 'GravyTrain369', {
+        this.add.text(750, 100, username, {
             fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'right'
