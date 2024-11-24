@@ -36,6 +36,7 @@ export class Preloader extends Scene
 
         this.load.image('crown', 'crown.png');
 
+        this.load.image('dagger', 'daggerSelector.png');
         
     }
 
