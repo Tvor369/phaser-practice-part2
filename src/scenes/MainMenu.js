@@ -46,7 +46,13 @@ export class MainMenu extends Scene
             align: 'left'
         }).setInteractive().setOrigin(0.5);
 
-        const settings = this.add.text(373, 450, 'Settings', {
+        const leaderboard = this.add.text(410, 450, 'Leaderboard', {
+            fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
+            stroke: '#000000', strokeThickness: 8,
+            align: 'left'
+        }).setInteractive().setOrigin(0.5);
+
+        const settings = this.add.text(373, 510, 'Settings', {
             fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'left'
@@ -84,6 +90,19 @@ export class MainMenu extends Scene
         })
         loadGame.on('pointerdown', () => {
             alert('loadGame clicked');
+        })
+
+        leaderboard.on('pointerover', () => {
+            leaderboard.setColor('#ff0');
+            dagger.x = newGame.x - 170;
+            dagger.y = leaderboard.y;
+        })
+        leaderboard.on('pointerout', () => {
+            leaderboard.setColor('#fff');
+            dagger.y = 1000;
+        })
+        leaderboard.on('pointerdown', () => {
+            this.scene.start('Leaderboard');
         })
 
         settings.on('pointerover', () => {
