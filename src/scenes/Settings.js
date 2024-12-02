@@ -37,10 +37,6 @@ export class Settings extends Scene
             align: 'right'
         }).setInteractive().setOrigin(0.5);
 
-        let audioLevel = 1;
-
-        const testAudio = this.sound.add('sound', {loop: false}, {volume: audioLevel});
-
         const testAudioLevel = this.add.text(500, 200, 'Test Audio', {// change this to an icon er somethin later
             fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
@@ -68,6 +64,7 @@ export class Settings extends Scene
 
             valuechangeCallback: function(value){
                 sound.volume = value; // set volume between 0 - 1
+                testAudio.volume = value;
             },
 
         }).layout();
