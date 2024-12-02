@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';  
 
+// Color pallet for sliders
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
@@ -17,10 +18,9 @@ export class Settings extends Scene
         this.load.setPath('assets');
 
         this.load.image('bg', 'background.png');
-
-        this.load.audio('sound', 'test.ogg');
-
         this.add.image(512, 384, 'bg');
+
+        this.load.audio('testSFX', 'testSFX.ogg');
     }
 
     create ()
@@ -37,37 +37,52 @@ export class Settings extends Scene
             align: 'right'
         }).setInteractive().setOrigin(0.5);
 
-        const testAudioLevel = this.add.text(500, 200, 'Test Audio', {// change this to an icon er somethin later
-            fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setInteractive().setOrigin(0.5);
+    //  Load the SFX
+        const testSFX = this.sound.add('testSFX');
 
-        let sound = this.sound.add('sound');
-        sound.play({loop: false });
-
-        let slider = this.rexUI.add.slider({
+    //  Add a slider for the SFX volume
+        const numberBarSFX = this.rexUI.add.numberBar({
             x: 500,
-            y: 250,
-            width: 300,
-            height: 30,
-            orientation: 'x',
+            y: 300,
+            width: 300, // Fixed width
 
-            track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_DARK),
-            indicator: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_PRIMARY),
-            thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_PRIMARY),
+            background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_DARK),
 
-            input: 'click', // 'drag'|'click'
-            easeValue: { duration: 150 },
+            icon: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),//change to a speaker icon
 
-            value: 1, // Default value
-
-            valuechangeCallback: function(value){
-                sound.volume = value; // set volume between 0 - 1
-                testAudio.volume = value;
+            slider: {
+                // width: 120, // Fixed width
+                track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_PRIMARY),
+                indicator: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),
+                input: 'click',
             },
 
-        }).layout();
+            text: this.add.text(0, 0, '').setFixedSize(35, 0),
+
+            space: {
+                left: 10,
+                right: 10,
+                top: 10,
+                bottom: 10,
+
+                icon: 10,
+                slider: 10,
+            },
+
+            value : 0.75,//default volume
+
+            valuechangeCallback: function (value, oldValue, numberBar) {
+                numberBar.text = Math.round(Phaser.Math.Linear(0, 100, value));
+                //  Change the volume of the SFX
+                //testSFX.volume = value;
+                testSFX.volume = value;
+                testSFX.play({loop: false});
+            },
+        })
+        .layout();
+
+        numberBarSFX.setValue(75, 0, 100);
+
 
     //  Add a hover effect to the closeOut button
         closeOut.on('pointerover', () => {
@@ -80,10 +95,8 @@ export class Settings extends Scene
             this.scene.start('MainMenu');
         });
         
-        testAudioLevel.on('pointerdown', () => {
-            testAudio.play();
-        });
 
+        
 
 
 

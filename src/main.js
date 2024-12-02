@@ -5,7 +5,7 @@ import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 import { Leaderboard } from './scenes/Leaderboard';
 import { Settings } from './scenes/Settings';
-import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';//add ui plugin
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -15,7 +15,7 @@ const config = {
     height: 768,
     parent: 'game-container',
     backgroundColor: '#028af8',
-    plugins: {
+    plugins: {//add ui plugin
         scene: [{
             key: 'rexUI',
             plugin: RexUIPlugin,
