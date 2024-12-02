@@ -40,6 +40,13 @@ export class Settings extends Scene
     //  Load the SFX
         const testSFX = this.sound.add('testSFX');
 
+    //  SFX volume slider label
+        const sfxLabel = this.add.text(500, 260, 'SFX Volume', {
+            fontFamily: 'Inknut Antiqua', fontSize: 30, color: '#ffffff',
+            stroke: '#000000', strokeThickness: 8,
+            align: 'center'
+        }).setOrigin(0.5);
+
     //  Add a slider for the SFX volume
         const numberBarSFX = this.rexUI.add.numberBar({
             x: 500,
@@ -94,6 +101,8 @@ export class Settings extends Scene
         closeOut.on('pointerdown', () => {//Return to main menu
             this.scene.start('MainMenu');
         });
+
+        
         
 
         
