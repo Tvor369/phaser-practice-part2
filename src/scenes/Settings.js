@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';  
+import { Game, Scene } from 'phaser';  
 
 // Color pallet for sliders
 const COLOR_PRIMARY = 0x4e342e;
@@ -20,7 +20,7 @@ export class Settings extends Scene
         this.load.image('bg', 'background.png');
         this.add.image(512, 384, 'bg');
 
-        this.load.audio('testSFX', 'testSFX.ogg');
+        this.load.audio('testSFX', 'testSFX.ogg');//placeholder SFX
     }
 
     create ()
@@ -55,7 +55,9 @@ export class Settings extends Scene
 
             background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_DARK),
 
-            icon: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),//change to a speaker icon
+            //icon: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),//change to a speaker icon
+
+            
 
             slider: {
                 // width: 120, // Fixed width
@@ -82,13 +84,32 @@ export class Settings extends Scene
                 numberBar.text = Math.round(Phaser.Math.Linear(0, 100, value));
                 //  Change the volume of the SFX
                 //testSFX.volume = value;
-                testSFX.volume = value;
-                testSFX.play({loop: false});
+                
+                Game.volume = value;
+                //testSFX.volume = value;
+                //testSFX.play({loop: false, volume: Game.volume});
             },
         })
         .layout();
 
         numberBarSFX.setValue(75, 0, 100);
+
+        // play button for SFX
+        const playSFX = this.add.text(500, 350, 'Play SFX', {
+            fontFamily: 'Inknut Antiqua', fontSize: 30, color: '#ffffff',
+            stroke: '#000000', strokeThickness: 8,
+            align: 'center'
+        }).setInteractive().setOrigin(0.5);
+
+        playSFX.on('pointerover', () => {
+            playSFX.setColor('#ff0');
+        })
+        playSFX.on('pointerout', () => {
+            playSFX.setColor('#fff');
+        })
+        playSFX.on('pointerdown', () => {
+            testSFX.play({loop: false, volume: Game.volume});
+        });
 
 
     //  Add a hover effect to the closeOut button
