@@ -5,6 +5,7 @@ import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 import { Leaderboard } from './scenes/Leaderboard';
 import { Settings } from './scenes/Settings';
+import AudioController from './AudioController';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';//add ui plugin
 
 //  Find out more information about the Game Config at:

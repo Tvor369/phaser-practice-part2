@@ -31,14 +31,12 @@ export class Preloader extends Scene
     {
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
-
         this.load.image('bg', 'background.png');
-
         this.load.image('Macbeth', 'macbethTitle.png');
-
         this.load.image('crown', 'crown.png');
-
         this.load.image('dagger', 'daggerSelector.png');
+        //this.load.audio('testMusic', 'skeleton16.mp3');//placeholder music
+        this.load.audio('testMusic', 'TownTheme.mp3');//placeholder SFX
         
     }
 
@@ -47,7 +45,16 @@ export class Preloader extends Scene
         //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
         //  For example, you can define global animations here, so we can use them in other scenes.
 
+        // const testMusic = this.sound.add('testMusic');
+        // testMusic.play({loop: true, volume: 1});
+        // console.log(testMusic.isPlaying);
+
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
         this.scene.start('MainMenu');
+    }
+
+    testMethod()
+    {
+        console.log('test');
     }
 }

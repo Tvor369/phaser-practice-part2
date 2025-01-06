@@ -21,10 +21,17 @@ export class Settings extends Scene
         this.add.image(512, 384, 'bg');
 
         this.load.audio('testSFX', 'testSFX.ogg');//placeholder SFX
+
+        this.load.setPath('assets/ui');
+        this.load.image('checkedBox', 'checkedBox.png');
+        this.load.image('uncheckedBox', 'uncheckedBox.png');
+
+
     }
 
     create ()
     {
+    //  Menu title (Settings)
         this.add.text(500, 100, 'Settings', {// Title of the settings menu
             fontFamily: 'Inknut Antiqua', fontSize: 60, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
@@ -93,6 +100,15 @@ export class Settings extends Scene
         .layout();
 
         numberBarSFX.setValue(75, 0, 100);
+
+        if(true)//have a check for is muted or not
+        {
+            this.add.image(500, 500, 'checkedBox').setOrigin(0.5);
+        }
+        else
+        {
+            this.add.image(500, 500, 'uncheckedBox').setOrigin(0.5);
+        }
 
         // play button for SFX
         const playSFX = this.add.text(500, 350, 'Play SFX', {

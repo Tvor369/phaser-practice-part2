@@ -6,12 +6,18 @@ export class MainMenu extends Scene
     constructor ()
     {
         super('MainMenu');
+
+        
     }
 
     init ()
     {
         //  We loaded this image in our Boot Scene, so we can continue to display it here
         this.add.image(512, 384, 'bg');
+
+        const testMusic = this.sound.add('testMusic');
+        testMusic.play({loop: true, volume: 1});
+        console.log(testMusic.isPlaying);
     }
 
     create ()
@@ -21,6 +27,8 @@ export class MainMenu extends Scene
         this.add.image(770, 320, 'crown');
 
         const dagger = this.add.image(170, 1000, 'dagger').setOrigin(0.5);// Active but off screen
+
+
 
 
     // Grab the username from the data object to displayed in top right corner
