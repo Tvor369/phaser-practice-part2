@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import { Game, Scene } from 'phaser';
 const data = { username: 'GravyTrain369' };  
 
 export class MainMenu extends Scene
@@ -15,9 +15,9 @@ export class MainMenu extends Scene
         //  We loaded this image in our Boot Scene, so we can continue to display it here
         this.add.image(512, 384, 'bg');
 
-        const testMusic = this.sound.add('testMusic');
-        testMusic.play({loop: true, volume: 1});
-        console.log(testMusic.isPlaying);
+        // const testMusic = this.sound.add('testMusic');
+        // testMusic.play({loop: true, volume: 1});
+        // console.log(testMusic.isPlaying);
     }
 
     create ()
@@ -28,7 +28,14 @@ export class MainMenu extends Scene
 
         const dagger = this.add.image(170, 1000, 'dagger').setOrigin(0.5);// Active but off screen
 
-
+        // bg music
+        this.audioController = this.sys.game.globals.audioController;
+        if (this.audioController.musicOn === true && this.audioController.bgMusicPlaying === false) {
+            this.bgMusic = this.sound.add('testMusic', { volume: 0.5, loop: true });
+            this.bgMusic.play();
+            this.audioController.bgMusicPlaying = true;
+            this.sys.game.globals.bgMusic = this.bgMusic;
+        }
 
 
     // Grab the username from the data object to displayed in top right corner

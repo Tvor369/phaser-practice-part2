@@ -37,6 +37,11 @@ export class Preloader extends Scene
         this.load.image('dagger', 'daggerSelector.png');
         //this.load.audio('testMusic', 'skeleton16.mp3');//placeholder music
         this.load.audio('testMusic', 'TownTheme.mp3');//placeholder SFX
+
+        //ui assets
+        this.load.setPath('assets/ui');
+        this.load.image('checkedBox', 'checkedBox.png');
+        this.load.image('uncheckedBox', 'uncheckedBox.png');
         
     }
 

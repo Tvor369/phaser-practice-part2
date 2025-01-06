@@ -23,3 +23,4 @@ export default class AudioController {
       return this._bgMusicPlaying;
     }
   }
+  

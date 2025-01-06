@@ -22,15 +22,43 @@ export class Settings extends Scene
 
         this.load.audio('testSFX', 'testSFX.ogg');//placeholder SFX
 
-        this.load.setPath('assets/ui');
-        this.load.image('checkedBox', 'checkedBox.png');
-        this.load.image('uncheckedBox', 'uncheckedBox.png');
+
 
 
     }
 
     create ()
     {
+
+        //music
+        this.audioController = this.sys.game.globals.audioController;
+
+
+        this.musicButton = this.add.image(200, 200, 'checkedBox');
+        this.musicText = this.add.text(250, 190, 'Music Enabled', { fontSize: 24 });
+    
+        this.soundButton = this.add.image(200, 300, 'checkedBox');
+        this.soundText = this.add.text(250, 290, 'Sound Enabled', { fontSize: 24 });
+    
+        this.musicButton.setInteractive();
+        this.soundButton.setInteractive();
+
+        this.musicButton.on('pointerdown', function () {
+            this.audioController.musicOn = !this.audioController.musicOn;
+            this.updateAudio();
+          }.bind(this));
+      
+          this.soundButton.on('pointerdown', function () {
+            this.audioController.soundOn = !this.audioController.soundOn;
+            this.updateAudio();
+          }.bind(this));
+
+
+
+
+
+
+
     //  Menu title (Settings)
         this.add.text(500, 100, 'Settings', {// Title of the settings menu
             fontFamily: 'Inknut Antiqua', fontSize: 60, color: '#ffffff',
@@ -56,7 +84,7 @@ export class Settings extends Scene
 
     //  Add a slider for the SFX volume
         const numberBarSFX = this.rexUI.add.numberBar({
-            x: 500,
+            x: 700,
             y: 300,
             width: 300, // Fixed width
 
@@ -101,14 +129,7 @@ export class Settings extends Scene
 
         numberBarSFX.setValue(75, 0, 100);
 
-        if(true)//have a check for is muted or not
-        {
-            this.add.image(500, 500, 'checkedBox').setOrigin(0.5);
-        }
-        else
-        {
-            this.add.image(500, 500, 'uncheckedBox').setOrigin(0.5);
-        }
+
 
         // play button for SFX
         const playSFX = this.add.text(500, 350, 'Play SFX', {
@@ -148,6 +169,26 @@ export class Settings extends Scene
 
         
     }
+
+    updateAudio() {
+        if (this.audioController.musicOn === false) {
+          this.musicButton.setTexture('uncheckedBox');
+          this.sys.game.globals.bgMusic.stop();
+          this.audioController.bgMusicPlaying = false;
+        } else {
+          this.musicButton.setTexture('checkedBox');
+          if (this.audioController.bgMusicPlaying === false) {
+            this.sys.game.globals.bgMusic.play();
+            this.audioController.bgMusicPlaying = true;
+          }
+        }
+    
+        if (this.audioController.soundOn === false) {
+          this.soundButton.setTexture('uncheckedBox');
+        } else {
+          this.soundButton.setTexture('checkedBox');
+        }
+      }
 
     update ()
     {
