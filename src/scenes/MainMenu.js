@@ -31,7 +31,7 @@ export class MainMenu extends Scene
         // bg music
         this.audioController = this.sys.game.globals.audioController;
         if (this.audioController.musicOn === true && this.audioController.bgMusicPlaying === false) {
-            this.bgMusic = this.sound.add('testMusic', { volume: 0.5, loop: true });
+            this.bgMusic = this.sound.add('testMusic', { volume: this.audioController.bgVolume, loop: true });
             this.bgMusic.play();
             this.audioController.bgMusicPlaying = true;
             this.sys.game.globals.bgMusic = this.bgMusic;

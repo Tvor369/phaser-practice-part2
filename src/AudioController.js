@@ -3,6 +3,7 @@ export default class AudioController {
       this._soundOn = true;
       this._musicOn = true;
       this._bgMusicPlaying = false;
+      this._bgVolume = 0.5;
     }
     set musicOn(value) {
       this._musicOn = value;
@@ -21,6 +22,12 @@ export default class AudioController {
     }
     get bgMusicPlaying() {
       return this._bgMusicPlaying;
+    }
+    set bgVolume(value) {
+      this._bgVolume = value;
+    }
+    get bgVolume() {
+      return this._bgVolume;
     }
   }
   

@@ -72,15 +72,62 @@ export class Settings extends Scene
             align: 'right'
         }).setInteractive().setOrigin(0.5);
 
+
+            //  Add a slider for the SFX volume
+            const numberBarMusic = this.rexUI.add.numberBar({
+                x: 700,
+                y: 200,
+                width: 300, // Fixed width
+                background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_DARK),
+                slider: {
+                    // width: 120, // Fixed width
+                    track: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_PRIMARY),
+                    indicator: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),
+                    input: 'click',
+                },
+                text: this.add.text(0, 0, '').setFixedSize(35, 0),
+                space: {
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                    bottom: 10,
+    
+                    icon: 10,
+                    slider: 10,
+                },
+    
+                //value: this.audioController.bgVolume*100,//default volume
+    
+                valuechangeCallback: function (value, oldValue, numberBarMusic) {
+                    numberBarMusic.text = Math.round(Phaser.Math.Linear(0, 100, value));
+                    
+                },
+            })
+            .layout();
+
+            // numberBarMusic.getValue();
+            
+
+            numberBarMusic.setValue(this.audioController.bgVolume*100, 0, 100);//need to convert volume to a percentage
+
+
+            //this.audioController.bgVolume = numberBarMusic.getValue();
+
+            numberBarMusic.on('valuechange', function () {
+                console.log('value changed to ' + numberBarMusic.getValue());
+                //this.audioController.bgVolume = numberBarMusic.getValue()*100;
+                //console.log('volume is now ' + this.audioController.bgVolume);
+                //console.log(this.audioController.bgMusicPlaying);
+                this.updateVolume(numberBarMusic.getValue())
+            }.bind(this));
+            
+           
+
+
     //  Load the SFX
         const testSFX = this.sound.add('testSFX');
 
     //  SFX volume slider label
-        const sfxLabel = this.add.text(500, 260, 'SFX Volume', {
-            fontFamily: 'Inknut Antiqua', fontSize: 30, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5);
 
     //  Add a slider for the SFX volume
         const numberBarSFX = this.rexUI.add.numberBar({
@@ -161,25 +208,27 @@ export class Settings extends Scene
         });
 
         
-        
-
-        
-
-
-
-        
     }
+
+
+    updateVolume(value) {  
+        this.audioController.bgVolume = value;
+        this.sys.game.globals.bgMusic.setVolume(this.audioController.bgVolume);
+    }
+
 
     updateAudio() {
         if (this.audioController.musicOn === false) {
           this.musicButton.setTexture('uncheckedBox');
           this.sys.game.globals.bgMusic.stop();
           this.audioController.bgMusicPlaying = false;
+          console.log(this.audioController.bgMusicPlaying);
         } else {
           this.musicButton.setTexture('checkedBox');
           if (this.audioController.bgMusicPlaying === false) {
             this.sys.game.globals.bgMusic.play();
             this.audioController.bgMusicPlaying = true;
+            console.log(this.audioController.bgMusicPlaying);
           }
         }
     
@@ -193,6 +242,8 @@ export class Settings extends Scene
     update ()
     {
         //  Update logic here
-        
+        // numberBarMusic.on('valuechange', function (newValue, oldValue, numberBar) {
+        //         // numberBar.text = Math.round(Phaser.Math.Linear(0, 100, newValue));
+        // }, scope);
     }
 }
