@@ -36,11 +36,18 @@ export class Preloader extends Scene
         this.load.image('crown', 'crown.png');
         this.load.image('dagger', 'daggerSelector.png');
         //this.load.audio('testMusic', 'skeleton16.mp3');//placeholder music
-        this.load.audio('testMusic', 'TownTheme.mp3');//placeholder SFX
+
+        this.load.setPath('assets/audio');
+        this.load.audio('testMusic', 'TownTheme.mp3');//placeholder bg music
+        this.load.audio('skeleton', 'skeleton16.mp3');//placeholder music
+        this.load.audio('swoosh', 'Swoosh.mp3');//placeholder music
 
         //ui assets
         this.load.setPath('assets/ui');
+        this.load.image('backButton', 'backButton.png');
         this.load.image('checkedBox', 'checkedBox.png');
+        this.load.image('optionsButton', 'optionsButton.png');
+        this.load.image('playButton', 'playButton.png');
         this.load.image('uncheckedBox', 'uncheckedBox.png');
         
     }

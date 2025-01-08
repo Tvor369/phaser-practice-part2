@@ -5,7 +5,7 @@ const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
 
-export class Settings extends Scene
+export class Settings extends Phaser.Scene
 {
     constructor ()
     {
@@ -54,7 +54,16 @@ export class Settings extends Scene
           }.bind(this));
 
 
-
+        this.backButton = this.add.image(50, 50, 'backButton').setInteractive();
+        this.backButton.on('pointerover', () => {
+            this.backButton.setScale(1.1);
+        });
+        this.backButton.on('pointerout', () => {
+            this.backButton.setScale(1);
+        });
+        this.backButton.on('pointerdown', () => {
+            this.scene.start('MainMenu');
+        });
 
 
 
@@ -62,15 +71,15 @@ export class Settings extends Scene
     //  Menu title (Settings)
         this.add.text(500, 100, 'Settings', {// Title of the settings menu
             fontFamily: 'Inknut Antiqua', fontSize: 60, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
+            stroke: '#000000', strokeThickness: 2,
             align: 'center'
         }).setOrigin(0.5);
 
-        const closeOut = this.add.text(50, 50, 'X', {// temp X button to close the settings menu
-            fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'right'
-        }).setInteractive().setOrigin(0.5);
+        // const closeOut = this.add.text(50, 50, 'X', {// temp X button to close the settings menu
+        //     fontFamily: 'Inknut Antiqua', fontSize: 40, color: '#ffffff',
+        //     stroke: '#000000', strokeThickness: 8,
+        //     align: 'right'
+        // }).setInteractive().setOrigin(0.5);
 
 
             //  Add a slider for the SFX volume
@@ -100,24 +109,13 @@ export class Settings extends Scene
     
                 valuechangeCallback: function (value, oldValue, numberBarMusic) {
                     numberBarMusic.text = Math.round(Phaser.Math.Linear(0, 100, value));
-                    
                 },
             })
             .layout();
 
-            // numberBarMusic.getValue();
-            
-
             numberBarMusic.setValue(this.audioController.bgVolume*100, 0, 100);//need to convert volume to a percentage
 
-
-            //this.audioController.bgVolume = numberBarMusic.getValue();
-
             numberBarMusic.on('valuechange', function () {
-                console.log('value changed to ' + numberBarMusic.getValue());
-                //this.audioController.bgVolume = numberBarMusic.getValue()*100;
-                //console.log('volume is now ' + this.audioController.bgVolume);
-                //console.log(this.audioController.bgMusicPlaying);
                 this.updateVolume(numberBarMusic.getValue())
             }.bind(this));
             
@@ -127,7 +125,6 @@ export class Settings extends Scene
     //  Load the SFX
         const testSFX = this.sound.add('testSFX');
 
-    //  SFX volume slider label
 
     //  Add a slider for the SFX volume
         const numberBarSFX = this.rexUI.add.numberBar({
@@ -138,8 +135,6 @@ export class Settings extends Scene
             background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_DARK),
 
             //icon: this.rexUI.add.roundRectangle(0, 0, 0, 0, 10, COLOR_LIGHT),//change to a speaker icon
-
-            
 
             slider: {
                 // width: 120, // Fixed width
@@ -160,7 +155,7 @@ export class Settings extends Scene
                 slider: 10,
             },
 
-            value : 0.75,//default volume
+            //value : 0.75,//default volume
 
             valuechangeCallback: function (value, oldValue, numberBar) {
                 numberBar.text = Math.round(Phaser.Math.Linear(0, 100, value));
@@ -176,37 +171,51 @@ export class Settings extends Scene
 
         numberBarSFX.setValue(75, 0, 100);
 
+        numberBarSFX.on('valuechange', function () {
+            this.updateVol(numberBarSFX.getValue())
+        }.bind(this));
 
+        // test SFX
+        this.sound.add('swoosh');
+        this.playButton = this.add.image(500, 400, 'playButton').setInteractive()
+        this.playButtonText = this.add.text(200, 400, 'Play Audio Sample', { fontSize: 18 });
+        this.playButton.on('pointerdown', () => {
+            testSFX.play({loop: false, volume: Game.volume});
+            this.playButton.setScale(.9);
+        });
+        this.playButton.on('pointerover', () => {
+            this.playButton.setScale(1.1);
+        });
+        this.playButton.on('pointerout', () => {
+            this.playButton.setScale(1);
+        });
+        this.playButton.on('pointerup', () => {
+            this.playButton.setScale(1.1);
+        });
 
         // play button for SFX
-        const playSFX = this.add.text(500, 350, 'Play SFX', {
-            fontFamily: 'Inknut Antiqua', fontSize: 30, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setInteractive().setOrigin(0.5);
+        // const playSFX = this.add.text(500, 350, 'Play SFX', {
+        //     fontFamily: 'Inknut Antiqua', fontSize: 30, color: '#ffffff',
+        //     stroke: '#000000', strokeThickness: 8,
+        //     align: 'center'
+        // }).setInteractive().setOrigin(0.5);
 
-        playSFX.on('pointerover', () => {
-            playSFX.setColor('#ff0');
-        })
-        playSFX.on('pointerout', () => {
-            playSFX.setColor('#fff');
-        })
-        playSFX.on('pointerdown', () => {
-            testSFX.play({loop: false, volume: Game.volume});
-        });
+        // playSFX.on('pointerover', () => {
+        //     playSFX.setColor('#ff0');
+        // })
+        // playSFX.on('pointerout', () => {
+        //     playSFX.setColor('#fff');
+        // })
+        // playSFX.on('pointerdown', () => {
+        //     testSFX.play({loop: false, volume: Game.volume});
+        // });
 
 
-    //  Add a hover effect to the closeOut button
-        closeOut.on('pointerover', () => {
-            closeOut.setColor('#ff0');
-        })
-        closeOut.on('pointerout', () => {
-            closeOut.setColor('#fff');
-        })
-        closeOut.on('pointerdown', () => {//Return to main menu
-            this.scene.start('MainMenu');
-        });
+    // Ensure that the check boxes are updated when the settings menu is opened
+        this.updateAudio();
+    }
 
+    updateVol() {
         
     }
 
@@ -220,13 +229,15 @@ export class Settings extends Scene
     updateAudio() {
         if (this.audioController.musicOn === false) {
           this.musicButton.setTexture('uncheckedBox');
-          this.sys.game.globals.bgMusic.stop();
+        //   this.sys.game.globals.bgMusic.stop();
+        this.sys.game.globals.bgMusic.pause();
           this.audioController.bgMusicPlaying = false;
           console.log(this.audioController.bgMusicPlaying);
         } else {
           this.musicButton.setTexture('checkedBox');
           if (this.audioController.bgMusicPlaying === false) {
-            this.sys.game.globals.bgMusic.play();
+            //this.sys.game.globals.bgMusic.play();
+            this.sys.game.globals.bgMusic.resume();
             this.audioController.bgMusicPlaying = true;
             console.log(this.audioController.bgMusicPlaying);
           }
@@ -241,9 +252,6 @@ export class Settings extends Scene
 
     update ()
     {
-        //  Update logic here
-        // numberBarMusic.on('valuechange', function (newValue, oldValue, numberBar) {
-        //         // numberBar.text = Math.round(Phaser.Math.Linear(0, 100, newValue));
-        // }, scope);
+
     }
 }
