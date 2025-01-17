@@ -106,7 +106,7 @@ const config = {
 
 
 
-class Game extends Phaser.Game {
+class Project extends Phaser.Game {
   constructor () {
     super(config);
     const audioController = new AudioController();
@@ -115,7 +115,7 @@ class Game extends Phaser.Game {
 }
 
 
-export default new Game();
+export default new Project();
 
 
 //export default new Phaser.Game(config);
