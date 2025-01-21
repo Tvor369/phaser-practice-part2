@@ -51,12 +51,14 @@
 
 
 import { Boot } from './scenes/Boot';
-//import { Game } from './scenes/Game';
+import { Game } from './scenes/Game';
 import { GameOver } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 import { Leaderboard } from './scenes/Leaderboard';
 import { Settings } from './scenes/Settings';
+import { Act1Scene1 } from './scenes/Act1Scene1';
+
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import AudioController from './AudioController';
 
@@ -90,10 +92,12 @@ const config = {
         Boot,
         Preloader,
         MainMenu,
-        //Game,
+        Game,
         GameOver,
         Leaderboard,
-        Settings
+        Settings,
+        Act1Scene1
+        
     ],
     // globals: [{
     //     audioController : AudioController,

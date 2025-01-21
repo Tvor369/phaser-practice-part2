@@ -104,7 +104,8 @@ export class MainMenu extends Scene
             dagger.y = 1000;
         })
         loadGame.on('pointerdown', () => {
-            alert('loadGame clicked');
+            this.scene.start('Act1Scene1');
+            //this.scene.start('Game');
         })
 
         leaderboard.on('pointerover', () => {

@@ -177,7 +177,7 @@ export class Settings extends Phaser.Scene
 
         // test SFX
         this.sound.add('swoosh');
-        this.playButton = this.add.image(500, 400, 'playButton').setInteractive()
+        this.playButton = this.add.image(500, 400, 'playButton').setInteractive();
         this.playButtonText = this.add.text(200, 400, 'Play Audio Sample', { fontSize: 18 });
         this.playButton.on('pointerdown', () => {
             testSFX.play({loop: false, volume: Game.volume});
