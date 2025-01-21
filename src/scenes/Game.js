@@ -38,6 +38,7 @@ export class Game extends Phaser.Scene
         this.optionsButton.on('pointerdown', () => {
             //optionsActive = !optionsActive;
             this.optionsModal.setVisible(true);
+            this.optionsModal.setActive(true);
         });
         this.optionsButton.on('pointerover', () => {
             this.optionsButton.setScale(1.1);
@@ -64,15 +65,15 @@ export class Game extends Phaser.Scene
         container.add(this.closeButton);
 
 
-        this.closeButton.on('pointerdown', () => {
-            this.optionsModal.setVisible(false);
-        });
+
 
         return container;
     }
 
     makeCloseButton(x,y){
         var closeButton = this.add.container(x, y);
+        closeButton.setSize(70, 38);
+        closeButton.setInteractive();
         this.buttonBg = this.rexUI.add.roundRectangle(0, 0, 70, 38, 10, 0x3B2823);
         this.buttonBg.setStrokeStyle(3, 0x674F49);
         this.buttonText = this.add.text(-20, -5, 'Close', { fontSize: '14px', fill: '#fff' });
@@ -80,7 +81,10 @@ export class Game extends Phaser.Scene
         closeButton.add(this.buttonBg);
         closeButton.add(this.buttonText);
 
-
+        closeButton.on('pointerdown', () => {
+            this.optionsModal.setVisible(false);
+            this.optionsModal.setActive(false);
+        });
 
         return closeButton;
     }
