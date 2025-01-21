@@ -54,13 +54,35 @@ export class Game extends Phaser.Scene
         this.optionsBg = this.rexUI.add.roundRectangle(0, 0, 340, 440, 20, 0x4E342E);
         this.optionsBg.setStrokeStyle(3, 0x674F49);
 
-        this.optionsTitle = this.add.text(0, -180, 'Options', { fontSize: '24px', fill: '#fff' });
+        this.optionsTitle = this.add.text(-50, -160, 'Options', { fontSize: '24px', fill: '#fff' });
 
+        this.closeButton = this.makeCloseButton(120,-180).setInteractive();
 
 
         container.add(this.optionsBg);
+        container.add(this.optionsTitle);
+        container.add(this.closeButton);
+
+
+        this.closeButton.on('pointerdown', () => {
+            this.optionsModal.setVisible(false);
+        });
 
         return container;
+    }
+
+    makeCloseButton(x,y){
+        var closeButton = this.add.container(x, y);
+        this.buttonBg = this.rexUI.add.roundRectangle(0, 0, 70, 38, 10, 0x3B2823);
+        this.buttonBg.setStrokeStyle(3, 0x674F49);
+        this.buttonText = this.add.text(-20, -5, 'Close', { fontSize: '14px', fill: '#fff' });
+
+        closeButton.add(this.buttonBg);
+        closeButton.add(this.buttonText);
+
+
+
+        return closeButton;
     }
 
 
